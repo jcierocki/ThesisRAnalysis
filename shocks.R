@@ -2,20 +2,17 @@
 
 library(tidyverse)
 library(stringr)
-library(knitr)
-library(kableExtra)
-library(RColorBrewer)
 
 rm(list = ls())
 
 source("plot_funs.R")
 
 shock_df1 <- read_csv("data/julia/results_0125_0075_shoct_85_85.csv") %>% 
-  bind_cols(tibble(model = rep(1L, 170)))
+  add_column(model = rep(1L, 170))
 shock_df2 <- read_csv("data/julia/results_012_006_0085_85_45_40.csv") %>% 
-  bind_cols(tibble(model = rep(2L, 170)))
+  add_column(model = rep(2L, 170))
 shock_df3 <- read_csv("data/julia/results_015_012_006_0085_40_40_40_50.csv") %>% 
-  bind_cols(tibble(model = rep(3L, 170)))
+  add_column(model = rep(3L, 170))
 
 ######################
 
