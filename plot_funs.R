@@ -21,7 +21,7 @@ plot_multi <- function(df, .var_names, .lab_names) {
     pivot_longer(!contains("time"), names_to = "type") %>% 
     ggplot(aes(x = time, y = value, colour = type)) +
     geom_line() +
-    labs(x = "Czas", 
+    labs(x = "Czas (dni)", 
          y = "Liczba agentów",
          colour = "Stan") + 
     scale_colour_hue(labels = .lab_names)

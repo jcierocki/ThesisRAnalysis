@@ -18,20 +18,20 @@ shock_df3 <- read_csv("data/julia/results_015_012_006_0085_40_40_40_50.csv") %>%
 
 var_names <- c("carrier" = "Niezdiagnozowany (C)", "infected" = "Zdiagnozowany (I)", "exposed" = "Inkubacja (E)")
 
-plt1 <- shock_df1 %>% 
-  plot_multi(names(var_names), var_names)
-
-ggsave("figures/shock1.eps")
-
-plt2 <- shock_df2 %>% 
-  plot_multi(names(var_names), var_names)
-
-ggsave("figures/shock2.eps")
-
-plt3 <- shock_df3 %>% 
-  plot_multi(names(var_names), var_names)
-
-ggsave("figures/shock3.eps")
+# plt1 <- shock_df1 %>% 
+#   plot_multi(names(var_names), var_names)
+# 
+# ggsave("figures/shock1.eps")
+# 
+# plt2 <- shock_df2 %>% 
+#   plot_multi(names(var_names), var_names)
+# 
+# ggsave("figures/shock2.eps")
+# 
+# plt3 <- shock_df3 %>% 
+#   plot_multi(names(var_names), var_names)
+# 
+# ggsave("figures/shock3.eps")
 
 ######################
 
@@ -45,7 +45,7 @@ do.call(
   pivot_longer(all_of(names(var_names)), names_to = "type") %>% 
   ggplot(aes(x = time, y = value, colour = type)) +
   geom_line() +
-  labs(x = "Czas", 
+  labs(x = "Czas (dni)", 
        y = "Liczba agentów",
        colour = "Stan",
        shape = "Model") + 
