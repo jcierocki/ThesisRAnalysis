@@ -2,17 +2,18 @@
 
 library(tidyverse)
 library(stringr)
+library(knitr)
 
 rm(list = ls())
 
 source("plot_funs.R")
 
-var_names <- c("carrier" = "Niezdiagnozowany", "infected" = "Zdiagnozowany", "exposed" = "Inkubacja", "dead" = "Zmarły")
+var_names <- c("carrier" = "Niezdiagnozowany (C)", "infected" = "Zdiagnozowany (I)", "exposed" = "Inkubacja (E)", "dead" = "Zmarły (D)")
 
 model_dfs <- "data/julia/tot_res_0" %>% 
   str_c(c("09", "11", "13", "15")) %>% 
   str_c(".csv") %>% 
-  map2(~ read_csv(.x)) 
+  map(~ read_csv(.x)) 
 
 model_dfs2 <- model_dfs %>% map2(c(0.09, 0.11, 0.13, 0.15), function(model_df, alpha) {
   higher_inf_times <- map_int(1:9, ~ which.max(
@@ -55,3 +56,24 @@ var_df %>%
   ggplot(aes(x = time, y = infected, group = model)) +
     geom_boxplot() +
     scale_fill_hue()
+
+#######################################
+
+model_dfs2[[3]] %>% 
+  plot_multi(c("suspectible", "recovered"), var_names)
+
+1 - model_dfs2[[3]] %>% slice(180) %>% pull(suspectible) / 3800000
+
+ggsave("figures/SR_plot.eps", device = "eps")
+
+#######
+
+model_dfs3 <- model_dfs %>% map2(c(0.09, 0.11, 0.13, 0.15), ~ add_column(.x, model = rep(.y, 180*9), time = rep(seq(1,180),9)))
+
+end_df <- bind_rows(model_dfs3[[3]], model_dfs3[[4]]) %>% 
+  filter(time == 180, dead > 0) %>% 
+  select(model, suspectible, recovered, dead) %>% 
+  rename(alpha = model) %>% 
+  mutate_at(vars(-alpha), ~ round(.x / 3800000, 3))
+
+end_df %>% kable(format = "latex")

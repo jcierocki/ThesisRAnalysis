@@ -13,7 +13,7 @@ compare_dfs <- "data/julia/compare_pcontact_01_02_" %>%
   map(read_csv)
 
 compare_dfs2 <- compare_dfs %>% map(~ group_by(.x, pcontact) %>% 
-                                      summarise_all(list(mean = mean, variance = var)))
+                                      summarise_all(list(mean = mean, variance = ~ var(.x)/length(.x))))
 
 compare_df2 <- expand_grid(c("abcd_", "ws_"), c("const_", "var_")) %>% 
   pmap_dfr(~ tibble(agr = str_c(...))) %>% 

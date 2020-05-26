@@ -16,7 +16,7 @@ shock_df3 <- read_csv("data/julia/results_015_012_006_0085_40_40_40_50.csv") %>%
 
 ######################
 
-var_names <- c("carrier" = "Niezdiagnozowany", "infected" = "Zdiagnozowany", "exposed" = "Inkubacja")
+var_names <- c("carrier" = "Niezdiagnozowany (C)", "infected" = "Zdiagnozowany (I)", "exposed" = "Inkubacja (E)")
 
 plt1 <- shock_df1 %>% 
   plot_multi(names(var_names), var_names)

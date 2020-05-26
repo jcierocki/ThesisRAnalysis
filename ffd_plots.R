@@ -27,26 +27,26 @@ graph_names <- graph_names %>% set_names(
 ###################################################################
 
 full_mean_df %>% 
-  plot_comparison("_I_70", "Średnia liczba aktywnych przypadków po 70 dniach", graph_names)
+  plot_comparison("_I_70", "Liczba agentów", graph_names)
 
 ggsave("figures/I70_mean.eps", device = "eps")
 
 full_mean_df %>% 
-  plot_comparison("_S_70", "Średnia liczba niezarażonych po 70 dniach", graph_names)
+  plot_comparison("_S_70", "Liczba agentów", graph_names)
 
 ggsave("figures/S70_mean.eps", device = "eps")
 
 full_mean_df %>% 
-  plot_comparison("_R_70", "Średnia liczba wyleczonych po 70 dniach", graph_names)
+  plot_comparison("_R_70", "Liczba agentów", graph_names)
 
 ggsave("figures/R70_mean.eps", device = "eps")
 
 full_mean_df %>% 
-  plot_comparison("_D_70", "Średnia liczba zmarłych po 70 dniach", graph_names)
+  plot_comparison("_D_70", "Liczba agentów", graph_names)
 
 ggsave("figures/D70_mean.eps", device = "eps")
 
 full_var_df %>% 
-  plot_comparison("_S_70", "Wariancja liczby aktywnych przypadków po 70 dniach", graph_names)
+  plot_comparison("_I_70", "Wariancja liczby agentów", graph_names)
 
-ggsave("figures/S70_var.eps", device = "eps")
+ggsave("figures/I70_var.eps", device = "eps")
